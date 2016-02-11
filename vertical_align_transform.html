@@ -1,0 +1,31 @@
+<<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+    .parent-element {
+      -webkit-transform-style: preserve-3d;
+      -moz-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      background:red;
+      height:500px;
+    }
+
+    .element {
+      background:yellow;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+  <div class="parent-element">
+    <div class="element">
+      a
+      <div class="test"></div>
+      a
+    </div>
+  </div>
+</body>
+</html>

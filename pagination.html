@@ -1,0 +1,99 @@
+<<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+  .btn {
+    height: 20px;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    float: left;
+    margin-left: 5px;
+    padding:10px 15px;
+    cursor: pointer;
+  }
+
+  .btn.active,
+  .btn:hover {
+    background: #58d;
+    color: #fff;
+  }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="btn-prev" class="btn">Prev</div>
+    <div id="pagination" class="clearfix"></div>
+    <div id="btn-next" class="btn">Next</div>
+  </div>
+
+  <script type="text/javascript">
+    function Pagination(id, pageNum){  
+      this.perPage = 10;
+      this.id = id;
+      this.el = document.getElementById(id);
+      this.pageNum = pageNum;
+      this.curPage = 1;
+      this.totalPage = Math.ceil(this.pageNum/this.perPage);
+    }
+
+    Pagination.prototype.initialize = function(){
+      this.render();
+      
+      var self = this;
+      
+      document.getElementById('btn-prev').addEventListener('click', function(){
+        console.log('ao');
+        self.curPage > 1 && self.curPage--;
+        self.render();
+      });
+      
+      document.getElementById('btn-next').addEventListener('click', function(){
+        console.log('ao');
+        self.curPage < self.totalPage && self.curPage++;
+        self.render();
+      });
+      
+      this.el.addEventListener('click', function(e){
+        var target = e.target;
+        var curBtn = document.getElementsByClassName('active')[0];
+        curBtn.classList.remove('active');
+        target.classList.add('active');
+        self.curPage = parseInt(target.textContent);
+      });
+    };
+
+    Pagination.prototype.render = function(){  
+
+      var frag = document.createDocumentFragment();
+      
+      for(var i = 0; i < this.totalPage; i++){
+        var btn = document.createElement('div');
+        var curPage = i + 1;
+        btn.textContent = curPage;
+        
+        if(curPage === this.curPage){
+          btn.classList.add('active');
+        }
+        btn.classList.add('btn');
+        frag.appendChild(btn);
+      }
+      
+      this.el.innerHTML = ""
+      this.el.appendChild(frag);
+    };
+
+    Pagination.prototype.createBtn = function(num){
+      var btn = '<div class="btn>' + num + '</div>';
+      return btn;
+    };
+
+    var pagination = new Pagination('pagination', 103);
+    pagination.initialize();
+
+
+
+
+  </script>
+</body>
+</html>
